@@ -1,5 +1,0 @@
-com\shiftup\step_definitions\GoogleStepDefs.class
-com\shiftup\step_definitions\Hooks.class
-com\shiftup\utilities\Driver.class
-com\shiftup\runners\TestRunner.class
-com\shiftup\utilities\ConfigReader.class
