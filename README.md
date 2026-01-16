@@ -86,7 +86,7 @@ mvn allure:serve
 Allure Raporu tarayıcınızda açılacaktır.
 
 ### 2. Maven Paneli ile (Allure Raporu Üretir)
-Kod yazmadan çalıştırmak için sağ taraftaki **Maven** menüsünü kullanın:
+Kod yazmadan çalıştırmak için sağ taraftaki **Maven** (Maven Paneli) menüsünü kullanın:
 1. `Lifecycle` klasörünü açın.
 2. Önce `clean` seçeneğine çift tıklayın (Eski raporları temizler).
 3. Ardından `test` seçeneğine çift tıklayın. (Testlerinizi çalıştırır).
@@ -129,7 +129,14 @@ Aynı anda kaç testin koşulacağını `pom.xml` dosyasından yönetebilirsiniz
 2. `plugins` içerisinde `<threadCount>` etiketini bulun.
 3.   Buradaki sayıyı değiştirerek paralellik seviyesini belirleyin 
 (Örneğin `2` yaparsanız aynı anda `2` tarayıcı açılır).
+     
 
 *Not: Paralel koşum, terminalden `mvn clean test` komutu çalıştırıldığında otomatik olarak devreye girer.*
+*Alternatif Çalıştırma Yöntemi (Maven Paneli):*
+Kod yazmak yerine IntelliJ arayüzünü kullanmak isterseniz:
+1. Ekranın sağ tarafındaki **Maven** menüsünü açın.
+2. `Lifecycle` klasörünü genişletin.
+3. Önce `clean` seçeneğine çift tıklayın (Eski raporları ve dosyaları temizler).
+4. Ardından `test` seçeneğine çift tıklayın (Testleri paralel olarak başlatır).
 
 
