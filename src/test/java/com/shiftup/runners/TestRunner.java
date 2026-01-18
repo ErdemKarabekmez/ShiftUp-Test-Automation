@@ -14,7 +14,7 @@ import org.testng.annotations.DataProvider;
         features = "src/test/resources/features",
         glue = "com.shiftup.step_definitions",
         dryRun = false,
-        tags = "@google"
+        tags = "@IzinBakiyesi"
 )
 public class TestRunner extends AbstractTestNGCucumberTests {
 
@@ -22,7 +22,6 @@ public class TestRunner extends AbstractTestNGCucumberTests {
        Bu metot, testlerin PARALEL çalışmasını sağlar.
        parallel = true olması gereklidir.
      */
-
     @Override
     @DataProvider(parallel = false)
     public Object[][] scenarios() {
