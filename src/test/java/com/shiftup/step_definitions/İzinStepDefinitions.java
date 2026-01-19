@@ -25,6 +25,7 @@ public class İzinStepDefinitions {
     @Given("Kullanıcı izin ekle menüsüne gider")
     public void kullanıcı_izin_ekle_menüsüne_gider() throws InterruptedException {
 
+        ReusableMethods.waitFor(5);
         i̇zinPage.izinEkleMenüsüneGidiş();
     }
 
@@ -32,6 +33,7 @@ public class İzinStepDefinitions {
     @When("Kullanıcı açılan pencerede izin tipi dropdowndan {string} seçeneğini seçer")
     public void kullanıcı_açılan_pencerede_izin_tipi_dropdowndan_seçeneğini_seçer(String izinTipi) throws InterruptedException {
 
+        ReusableMethods.waitFor(5);
         ReusableMethods.clickWithJS(i̇zinPage.izinTipiDropdown);
         ReusableMethods.waitFor(3);
         i̇zinPage.izinTipiSeçme(izinTipi);
@@ -41,10 +43,9 @@ public class İzinStepDefinitions {
     public void kullanıcı_iznin_başlama_tarihini_olarak_seçer(String başlamaTarihi) throws InterruptedException {
 
         ReusableMethods.waitFor(5);
-        ReusableMethods.clickWithJS(i̇zinPage.başlamaTarihiAlanı);
-        i̇zinPage.tarihiTemizleVeYeniTarihYaz(i̇zinPage.başlamaTarihiAlanı, başlamaTarihi);
+        ReusableMethods.clickWithJS(i̇zinPage.izinBaşlamaTarihiAlanı);
+        i̇zinPage.tarihiTemizleVeYeniTarihYaz(i̇zinPage.izinBaşlamaTarihiAlanı, başlamaTarihi);
         ReusableMethods.waitFor(5);
-
 
     }
 
@@ -52,8 +53,8 @@ public class İzinStepDefinitions {
     public void kullanıcı_iznin_bitiş_tarihini_olarak_seçer(String bitişTarihi) throws InterruptedException {
 
         ReusableMethods.waitFor(5);
-        ReusableMethods.clickWithJS(i̇zinPage.bitişTarihiAlanı);
-        i̇zinPage.tarihiTemizleVeYeniTarihYaz(i̇zinPage.bitişTarihiAlanı, bitişTarihi);
+        ReusableMethods.clickWithJS(i̇zinPage.izinBitişTarihiAlanı);
+        i̇zinPage.tarihiTemizleVeYeniTarihYaz(i̇zinPage.izinBitişTarihiAlanı, bitişTarihi);
 
 
     }
@@ -90,24 +91,13 @@ public class İzinStepDefinitions {
 
     }
 
-    @Then("Kullanıcı başlangıç tarihinin otomatik olarak ilk perşembe gününe güncellendiğini doğrular")
-    public void kullanıcı_başlangıç_tarihinin_otomatik_olarak_ilk_perşembe_gününe_güncellendiğini_doğrular() throws InterruptedException {
+    @Then("Kullanıcı iznin başlama tarihinin ilk geçerli gün olan {string} olarak güncellendiğini doğrular")
+    public void kullanıcı_iznin_başlama_tarihinin_ilk_geçerli_gün_olan_olarak_güncellendiğini_doğrular(String izinBaşlamaTarihi) throws InterruptedException {
 
         ReusableMethods.waitFor(1);
-        String güncelTarih = (String) ((JavascriptExecutor) Driver.getDriver()).executeScript("return arguments[0].value;", i̇zinPage.başlamaTarihiAlanı);
+        String güncelTarih = (String) ((JavascriptExecutor) Driver.getDriver()).executeScript("return arguments[0].value;", i̇zinPage.izinBaşlamaTarihiAlanı);
         System.out.println("Sistemin düzelttiği tarih: " + güncelTarih);
-        Assert.assertTrue(güncelTarih.contains("15"), "Hata: Sistem tarihi otomatik Perşembe'ye (15) düzeltmedi!");
-
-
-    }
-
-    @Then("Kullanıcı başlangıç tarihinin otomatik olarak ilk pazartesi gününe güncellendiğini doğrular")
-    public void kullanıcı_başlangıç_tarihinin_otomatik_olarak_ilk_pazartesi_gününe_güncellendiğini_doğrular() throws InterruptedException {
-
-        ReusableMethods.waitFor(1);
-        String güncelTarih = (String) ((JavascriptExecutor) Driver.getDriver()).executeScript("return arguments[0].value;", i̇zinPage.başlamaTarihiAlanı);
-        System.out.println("Sistemin düzelttiği tarih: " + güncelTarih);
-        Assert.assertTrue(güncelTarih.contains("23"), "Hata: Sistem tarihi otomatik Pazartesi'ye (23) düzeltmedi!");
+        Assert.assertEquals(güncelTarih, izinBaşlamaTarihi, "Hata: Sistem tarihi otomatik olarak düzeltmedi!");
 
 
     }
@@ -189,6 +179,16 @@ public class İzinStepDefinitions {
 
     }
 
+    @Then("Kullanıcı işe başlama tarihinin {string} olarak güncellendiğini doğrular")
+    public void kullanıcı_işe_başlama_tarihinin_olarak_güncellendiğini_doğrular(String işeBaşlamaTarihi) throws InterruptedException {
+
+        ReusableMethods.waitFor(1);
+        String güncelTarih = (String) ((JavascriptExecutor) Driver.getDriver()).executeScript("return arguments[0].value;", i̇zinPage.işeBaşlamaTarihiAlanı);
+        System.out.println("Sistemin düzelttiği tarih: " + güncelTarih);
+        Assert.assertEquals(güncelTarih, işeBaşlamaTarihi, "Hata: Sistem tarihi otomatik olarak düzeltmedi!");
+
+
+    }
 
 }
 

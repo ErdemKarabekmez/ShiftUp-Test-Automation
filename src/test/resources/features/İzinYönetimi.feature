@@ -5,7 +5,7 @@ Feature: İzin İşlemleri Modülü Yönetimi
     Given Kullanıcı geçerli bilgilerle login olur
 
   @YillikIzin
-  Scenario: (Pozitif Test) Yıllık İzin Seçimi
+  Scenario: (Pozitif Test-1) Yıllık İzin Seçimi
     Given Kullanıcı izin ekle menüsüne gider
     When Kullanıcı açılan pencerede izin tipi dropdowndan "Yıllık İzin" seçeneğini seçer
     And Kullanıcı iznin başlama tarihini "13.03.2026" olarak seçer
@@ -16,7 +16,7 @@ Feature: İzin İşlemleri Modülü Yönetimi
     And Kullanıcı yeni oluşturduğu izni tablodan siler
 
   @DogumIzni
-  Scenario: (Pozitif Test) Doğum İzni Seçimi
+  Scenario: (Pozitif Test-2) Doğum İzni Seçimi
     Given Kullanıcı izin ekle menüsüne gider
     When Kullanıcı açılan pencerede izin tipi dropdowndan "Doğum İzni" seçeneğini seçer
     And Kullanıcı iznin başlama tarihini "13.07.2026" olarak seçer
@@ -26,31 +26,55 @@ Feature: İzin İşlemleri Modülü Yönetimi
     Then Kullanıcı "Doğum İzni" oluşturulduğunu doğrular
     And Kullanıcı yeni oluşturduğu izni tablodan siler
 
+  @TopluIzinOlusturma
+  Scenario Outline: (Pozitif Test-3) Farklı izin tiplerinin başarıyla oluşturulması
+    Given Kullanıcı izin ekle menüsüne gider
+    When Kullanıcı açılan pencerede izin tipi dropdowndan "<izinTipi>" seçeneğini seçer
+    And Kullanıcı iznin başlama tarihini "<baslangic>" olarak seçer
+    And Kullanıcı iznin bitiş tarihini "<bitis>" olarak seçer
+    And Kullanıcı açıklama alanına "<aciklama>" yazar
+    And Kullanıcı ekle butonuna tıklar
+    Then Kullanıcı "<izinTipi>" oluşturulduğunu doğrular
+    And Kullanıcı yeni oluşturduğu izni tablodan siler
+
+    Examples:
+      | izinTipi    | baslangic  | bitis      | aciklama                      |
+      | Yıllık İzin | 13.03.2026 | 15.03.2026 | Yıllık izin otomasyon - Erdem |
+      | Doğum İzni  | 13.07.2026 | 15.07.2026 | Doğum izni otomasyon - Erdem  |
+
   @HesaplamaKontrolu
-  Scenario: (Pozitif Test) Tarih aralığına göre iznin toplam iş günü sayısının doğru hesaplanması
+  Scenario: (Pozitif Test-4) Tarih aralığına göre iznin toplam iş günü sayısının doğru hesaplanması
     Given Kullanıcı izin ekle menüsüne gider
     When Kullanıcı açılan pencerede izin tipi dropdowndan "Raporlu İzin" seçeneğini seçer
-    And Kullanıcı iznin başlama tarihini "14.07.2026" olarak seçer
+    And Kullanıcı iznin başlama tarihini "15.07.2026" olarak seçer
     And Kullanıcı iznin bitiş tarihini "19.07.2026" olarak seçer
-    Then Kullanıcı alt panelde toplam 6 İşgünü kullanıldığını doğrular
+    Then Kullanıcı alt panelde toplam 5 İşgünü kullanıldığını doğrular
 
+  @IseBaslamaTarihiKontrolu
+  Scenario: (Pozitif Test-5) İzin Bitimi İşe Başlama Tarihi Kontrolü
+    Given Kullanıcı izin ekle menüsüne gider
+    When Kullanıcı açılan pencerede izin tipi dropdowndan "Home Office" seçeneğini seçer
+    And Kullanıcı iznin başlama tarihini "22.04.2026" olarak seçer
+    And Kullanıcı iznin bitiş tarihini "25.04.2026" olarak seçer
+    Then Kullanıcı işe başlama tarihinin "26.04.2026" olarak güncellendiğini doğrular
 
   @UzaktanCalisma
-  Scenario:(Negatif Test) Uzaktan Çalışma izninde başlangıç gününü Perşembe harici (geçersiz) bir gün seçme
+  Scenario:(Negatif Test-1) Uzaktan Çalışma izninde başlangıç gününü Perşembe harici (geçersiz) bir gün seçme
     Given Kullanıcı izin ekle menüsüne gider
     When Kullanıcı açılan pencerede izin tipi dropdowndan "Uzaktan Çalışma" seçeneğini seçer
     And Kullanıcı iznin başlama tarihini "12.01.2026" olarak seçer
-    Then Kullanıcı başlangıç tarihinin otomatik olarak ilk perşembe gününe güncellendiğini doğrular
+    Then Kullanıcı iznin başlama tarihinin ilk geçerli gün olan "15.01.2026" olarak güncellendiğini doğrular
 
   @DogumGunuIzni
-  Scenario:(Negatif Test) Doğum Günü izninde başlangıç gününü Pazartesi harici (geçersiz) bir gün seçme
+  Scenario:(Negatif Test-2) Doğum Günü izninde başlangıç gününü Pazartesi harici (geçersiz) bir gün seçme
     Given Kullanıcı izin ekle menüsüne gider
     When Kullanıcı açılan pencerede izin tipi dropdowndan "Doğum Günü izni" seçeneğini seçer
     And Kullanıcı iznin başlama tarihini "21.02.2026" olarak seçer
-    Then Kullanıcı başlangıç tarihinin otomatik olarak ilk pazartesi gününe güncellendiğini doğrular
+    Then Kullanıcı iznin başlama tarihinin ilk geçerli gün olan "23.02.2026" olarak güncellendiğini doğrular
+
 
   @SaatlikIzin
-  Scenario: (Negatif Test) Günlük izin türü seçiliyken saatlik iznin kısıtlanması
+  Scenario: (Negatif Test-3) Günlük izin türü seçiliyken saatlik iznin kısıtlanması
     Given Kullanıcı izin ekle menüsüne gider
     When Kullanıcı açılan pencerede Günlük radio butonunun seçili olduğunu doğrular
     When Kullanıcı açılan pencerede izin tipi dropdowndan "İş Arama İzni(günde 2 saat)" seçeneğini seçer
@@ -58,7 +82,7 @@ Feature: İzin İşlemleri Modülü Yönetimi
     Then Kullanıcı Ekle butonunun disabled olduğunu doğrular
 
   @GunlukIzin
-  Scenario: (Negatif Test) Saatlik izin türü seçiliyken günlük iznin kısıtlanması
+  Scenario: (Negatif Test-4) Saatlik izin türü seçiliyken günlük iznin kısıtlanması
     Given Kullanıcı izin ekle menüsüne gider
     When Kullanıcı açılan pencerede Saatlik radio butonunu seçer
     When Kullanıcı açılan pencerede izin tipi dropdowndan "Doğum Günü izni" seçeneğini seçer
@@ -66,7 +90,7 @@ Feature: İzin İşlemleri Modülü Yönetimi
     Then Kullanıcı Ekle butonunun disabled olduğunu doğrular
 
   @EvlilikIzni
-  Scenario: (Negatif Test) Evlilik izni süresinin 3 günden fazla seçilmesi durumunda sistemin uyarı vermesi
+  Scenario: (Negatif Test-5) Evlilik izni süresinin 3 günden fazla seçilmesi durumunda sistemin uyarı vermesi
     Given Kullanıcı izin ekle menüsüne gider
     When Kullanıcı açılan pencerede izin tipi dropdowndan "Evlilik İzni" seçeneğini seçer
     And Kullanıcı iznin başlama tarihini "10.07.2026" olarak seçer
@@ -75,7 +99,7 @@ Feature: İzin İşlemleri Modülü Yönetimi
     Then Kullanıcı Ekle butonunun disabled olduğunu doğrular
 
   @IzinBakiyesi
-  Scenario: (Negatif Test - BUG ) Mevcut bakiyeden fazla izin talep edilmesi durumunda sistemin uyarı vermesi
+  Scenario: (Negatif Test-6 - BUG ) Mevcut bakiyeden fazla izin talep edilmesi durumunda sistemin uyarı vermesi
         # Mevcut bakiyeyi aşan izin taleplerinde sistem, "İzin hak edişiniz bulunmamaktadır" uyarısını göstermesine rağmen,
         # "EKLE" butonunu disabled hale getirmemekte ve izin talebinin kaydedilmesine izin vermektedir.
         # Bu durumda "EKLE" butonu disabled olmalıdır.
@@ -92,7 +116,7 @@ Feature: İzin İşlemleri Modülü Yönetimi
 
 
   @GecmisTarihliIzin
-  Scenario: (Negatif Test - BUG ) Geçmiş tarihli izin talebinin sistem tarafından engellenmesi
+  Scenario: (Negatif Test-7 - BUG ) Geçmiş tarihli izin talebinin sistem tarafından engellenmesi
         # Geçmiş tarihli izin taleplerinde sistem, izin talebinin kaydedilmesine izin vermektedir.
         # Bu gibi durumlarda izin talebi reddedilmelidir.
         # BU BİR BUG TIR
@@ -104,6 +128,8 @@ Feature: İzin İşlemleri Modülü Yönetimi
     And Kullanıcı ekle butonuna tıklar
     Then Kullanıcı "Yıllık İzin" oluşturulduğunu doğrular
     And Kullanıcı yeni oluşturduğu izni tablodan siler
+
+
 
 
 

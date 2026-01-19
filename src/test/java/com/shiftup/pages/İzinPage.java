@@ -33,10 +33,13 @@ public class İzinPage {
     public WebElement izinTipiDropdown;
 
     @FindBy(xpath = "//md-datepicker[@ng-model='vm.row.Start_Date']//input")
-    public WebElement başlamaTarihiAlanı;
+    public WebElement izinBaşlamaTarihiAlanı;
 
     @FindBy(xpath = "//md-datepicker[@ng-model='vm.row.Plan_Finish_Date']//input")
-    public WebElement bitişTarihiAlanı;
+    public WebElement izinBitişTarihiAlanı;
+
+    @FindBy (xpath = "//md-datepicker[@ng-model='vm.row.Start_Working_Date']//input")
+    public WebElement işeBaşlamaTarihiAlanı;
 
     @FindBy(id = "input_127")
     public WebElement açıklamaAlanı;
@@ -76,8 +79,11 @@ public class İzinPage {
 
     public void izinEkleMenüsüneGidiş() throws InterruptedException {
 
-        izinYönetimiButonu.click();
+        ReusableMethods.waitFor(5);
+        ReusableMethods.clickWithJS(izinYönetimiButonu);
+        ReusableMethods.waitFor(5);
         izinlerimButonu.click();
+       // ReusableMethods.clickWithJS(izinlerimButonu);
         ReusableMethods.waitFor(5);
         ReusableMethods.clickWithJS(hızlıİşlemlerButonu);
         ReusableMethods.waitFor(5);
