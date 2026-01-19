@@ -98,8 +98,25 @@ Feature: İzin İşlemleri Modülü Yönetimi
     Then Kullanıcı ekranda Evlilik izni en fazla 3 gün olabilir uyarısını doğrular
     Then Kullanıcı Ekle butonunun disabled olduğunu doğrular
 
+  @IzinTekrarı
+  Scenario: (Negatif Test-6) Aynı izni aynı tarihte tekrar seçme
+    Given Kullanıcı izin ekle menüsüne gider
+    When Kullanıcı açılan pencerede izin tipi dropdowndan "Ücretsiz İzin" seçeneğini seçer
+    And Kullanıcı iznin başlama tarihini "18.05.2026" olarak seçer
+    And Kullanıcı iznin bitiş tarihini "20.05.2026" olarak seçer
+    And Kullanıcı açıklama alanına "Ücretsiz izin otomasyon testi Erdem" yazar
+    And Kullanıcı ekle butonuna tıklar
+    Then Kullanıcı "Ücretsiz İzin" oluşturulduğunu doğrular
+    And Kullanıcı aynı tarihlerde yeni izin eklemek için tekrar izin ekle ekranına gelir
+    When Kullanıcı açılan pencerede izin tipi dropdowndan "Ücretsiz İzin" seçeneğini seçer
+    And Kullanıcı iznin başlama tarihini "18.05.2026" olarak seçer
+    Then Kullanıcı ekranda izin tanımlı uyarısını gördüğünü doğrular
+    Then Kullanıcı Ekle butonunun disabled olduğunu doğrular
+
+
+
   @IzinBakiyesi
-  Scenario: (Negatif Test-6 - BUG ) Mevcut bakiyeden fazla izin talep edilmesi durumunda sistemin uyarı vermesi
+  Scenario: (Negatif Test-7 - BUG ) Mevcut bakiyeden fazla izin talep edilmesi durumunda sistemin uyarı vermesi
         # Mevcut bakiyeyi aşan izin taleplerinde sistem, "İzin hak edişiniz bulunmamaktadır" uyarısını göstermesine rağmen,
         # "EKLE" butonunu disabled hale getirmemekte ve izin talebinin kaydedilmesine izin vermektedir.
         # Bu durumda "EKLE" butonu disabled olmalıdır.
@@ -116,7 +133,7 @@ Feature: İzin İşlemleri Modülü Yönetimi
 
 
   @GecmisTarihliIzin
-  Scenario: (Negatif Test-7 - BUG ) Geçmiş tarihli izin talebinin sistem tarafından engellenmesi
+  Scenario: (Negatif Test-8 - BUG ) Geçmiş tarihli izin talebinin sistem tarafından engellenmesi
         # Geçmiş tarihli izin taleplerinde sistem, izin talebinin kaydedilmesine izin vermektedir.
         # Bu gibi durumlarda izin talebi reddedilmelidir.
         # BU BİR BUG TIR

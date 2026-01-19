@@ -68,6 +68,9 @@ public class İzinPage {
     @FindBy(xpath = "(//span[contains(text(), 'İzin hak edişiniz bulunmamaktadır.')])[2]")
     public WebElement izinHakedişiBulunmamaUyariMesaji;
 
+    @FindBy (xpath = "//span[contains(text(), 'izin tanımlı')]")
+    public WebElement izinTanımlıUyarıMesajı;
+
     @FindBy(xpath = "//md-radio-button[@value='1' and @aria-label='Saatlik']")
     public WebElement saatlikRadioButonu;
 

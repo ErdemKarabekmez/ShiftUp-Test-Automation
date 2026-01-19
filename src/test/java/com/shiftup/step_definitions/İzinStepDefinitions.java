@@ -116,7 +116,7 @@ public class İzinStepDefinitions {
 
         String actualMesaj = i̇zinPage.saatlikIzinUyariMesaji.getText();
         String expectedMesaj = "İzin tipi saatliktir, günlük seçilemez !";
-        Assert.assertEquals(actualMesaj, expectedMesaj, "Hata: Saatlik izin uyarısı beklenen metni içermiyor!");
+        Assert.assertEquals(actualMesaj, expectedMesaj, "Hata: Saatlik izin uyarısı görünmüyor!");
     }
 
     @When("Kullanıcı açılan pencerede Saatlik radio butonunu seçer")
@@ -131,7 +131,7 @@ public class İzinStepDefinitions {
 
         String actualMesaj = i̇zinPage.günlükIzinUyariMesaji.getText();
         String expectedMesaj = "İzin tipi günlüktür, saatlik seçilemez !";
-        Assert.assertEquals(actualMesaj, expectedMesaj, "Hata: Günlük izin uyarısı beklenen metni içermiyor!");
+        Assert.assertEquals(actualMesaj, expectedMesaj, "Hata: Günlük izin uyarısı görünmüyor!");
 
     }
 
@@ -141,7 +141,7 @@ public class İzinStepDefinitions {
         String actualMesaj = i̇zinPage.evlilikIzniUyariMesaji.getText();
         System.out.println(actualMesaj);
         String expectedMesaj = "Evlilik izni en fazla 3 gün kullanılabilir";
-        Assert.assertEquals(actualMesaj, expectedMesaj, "Hata: Evlilik izni uyarısı beklenen metni içermiyor!");
+        Assert.assertEquals(actualMesaj, expectedMesaj, "Hata: Evlilik izni uyarısı görünmüyor!");
 
     }
 
@@ -189,6 +189,31 @@ public class İzinStepDefinitions {
 
 
     }
+
+    @Then("Kullanıcı aynı tarihlerde yeni izin eklemek için tekrar izin ekle ekranına gelir")
+    public void kullanıcı_aynı_tarihlerde_yeni_izin_eklemek_için_tekrar_izin_ekle_ekranına_gelir() throws InterruptedException {
+
+        ReusableMethods.waitFor(5);
+        ReusableMethods.clickWithJS(i̇zinPage.hızlıİşlemlerButonu);
+        ReusableMethods.waitFor(5);
+        ReusableMethods.clickWithJS(i̇zinPage.artıİşaretiButonu);
+        ReusableMethods.waitFor(5);
+
+    }
+
+    @Then("Kullanıcı ekranda izin tanımlı uyarısını gördüğünü doğrular")
+    public void kullanıcı_ekranda_izin_tanımlı_uyarısını_gördüğünü_doğrular() throws InterruptedException {
+
+        ReusableMethods.waitFor(4);
+        String actualMesaj = i̇zinPage.izinTanımlıUyarıMesajı.getText();
+        System.out.println("actual mesaj" + actualMesaj);
+        String expectedMesaj = "Belirtilen tarihler arasında izin tanımlı olduğu için devam edilemez!";
+        Assert.assertEquals(actualMesaj, expectedMesaj, "Hata: İzin tanımlı uyarısı görünmüyor.");
+
+
+
+    }
+
 
 }
 
