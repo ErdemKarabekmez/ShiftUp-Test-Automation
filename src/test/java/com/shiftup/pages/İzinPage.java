@@ -32,16 +32,16 @@ public class İzinPage {
     @FindBy(xpath = "(//md-select[@name='Vacation_Type'])[2]")
     public WebElement izinTipiDropdown;
 
-    @FindBy (xpath = "//md-datepicker[@ng-model='vm.row.Start_Date']//input")
+    @FindBy(xpath = "//md-datepicker[@ng-model='vm.row.Start_Date']//input")
     public WebElement başlamaTarihiAlanı;
 
-    @FindBy (xpath = "//md-datepicker[@ng-model='vm.row.Plan_Finish_Date']//input")
+    @FindBy(xpath = "//md-datepicker[@ng-model='vm.row.Plan_Finish_Date']//input")
     public WebElement bitişTarihiAlanı;
 
-    @FindBy (id = "input_127")
+    @FindBy(id = "input_127")
     public WebElement açıklamaAlanı;
 
-    @FindBy (xpath = "//button[@aria-label='Ekle']")
+    @FindBy(xpath = "//button[@aria-label='Ekle']")
     public WebElement ekleButonu;
 
     @FindBy(xpath = "(//button[@aria-label='delete'])[1]")
@@ -50,7 +50,7 @@ public class İzinPage {
     @FindBy(xpath = "//button[contains(@ng-click,'dialog.hide')]//span[text()='Sil']")
     public WebElement popupSilButonu;
 
-    @FindBy (xpath = "//md-radio-button[@value='0' and @aria-label='Günlük']")
+    @FindBy(xpath = "//md-radio-button[@value='0' and @aria-label='Günlük']")
     public WebElement günlükRadioButonu;
 
     @FindBy(xpath = "//span[contains(text(), 'İzin tipi saatliktir')]")
@@ -65,11 +65,14 @@ public class İzinPage {
     @FindBy(xpath = "(//span[contains(text(), 'İzin hak edişiniz bulunmamaktadır.')])[2]")
     public WebElement izinHakedişiBulunmamaUyariMesaji;
 
-    @FindBy (xpath = "//md-radio-button[@value='1' and @aria-label='Saatlik']")
+    @FindBy(xpath = "//md-radio-button[@value='1' and @aria-label='Saatlik']")
     public WebElement saatlikRadioButonu;
 
     @FindBy(xpath = "//small[contains(@class, 'ng-binding') and contains(@style, 'color:yellow')]")
     public WebElement kalanIzinBakiyeDegeri;
+
+    @FindBy(xpath = "//*[contains(text(),'İşgünü')]/../b")
+    public WebElement izinGunuSayisi;
 
     public void izinEkleMenüsüneGidiş() throws InterruptedException {
 
@@ -83,7 +86,7 @@ public class İzinPage {
 
     }
 
-    public void izinTipiSeçme(String izinTipi){
+    public void izinTipiSeçme(String izinTipi) {
 
         String dinamikXpath = "//md-option//div[normalize-space()='" + izinTipi + "']";
         WebElement seçim = Driver.getDriver().findElement(By.xpath(dinamikXpath));
@@ -91,7 +94,7 @@ public class İzinPage {
 
     }
 
-    public void tarihiTemizleVeYeniTarihYaz(WebElement element, String tarih){
+    public void tarihiTemizleVeYeniTarihYaz(WebElement element, String tarih) {
 
         JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
         js.executeScript("arguments[0].click();", element);
@@ -103,7 +106,7 @@ public class İzinPage {
 
     }
 
-    public String tümİzinlerTablosundailkSatırdakiİzinTipiniAl(){
+    public String tümİzinlerTablosundailkSatırdakiİzinTipiniAl() {
 
         WebElement ilkSatirIzinTipi = Driver.getDriver().findElement(By.xpath("(//table//tr[1]//td)[4]"));
         return ilkSatirIzinTipi.getText();
@@ -117,15 +120,17 @@ public class İzinPage {
         ReusableMethods.waitFor(5);
     }
 
-    public double bakiyeHesapla(){
+    public double bakiyeHesapla() {
 
         String bakiyeMetni = kalanIzinBakiyeDegeri.getText();
-        System.out.println("Görünen Bakiye: " + bakiyeMetni);
         String temizBakiye = bakiyeMetni.replaceAll("[^0-9.-]", "");
+        return Double.parseDouble(temizBakiye);
 
-        double kalanIzin = Double.parseDouble(temizBakiye);
-        System.out.println(temizBakiye);
-        return kalanIzin;
+    }
+
+    public int izinGunSayisi() {
+
+        return Integer.parseInt(izinGunuSayisi.getText());
 
     }
 

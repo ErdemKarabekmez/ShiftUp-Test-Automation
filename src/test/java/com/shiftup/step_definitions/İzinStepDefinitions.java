@@ -107,6 +107,17 @@ public class İzinStepDefinitions {
 
     }
 
+    @Then("Kullanıcı başlangıç tarihinin otomatik olarak ilk pazartesi gününe güncellendiğini doğrular")
+    public void kullanıcı_başlangıç_tarihinin_otomatik_olarak_ilk_pazartesi_gününe_güncellendiğini_doğrular() throws InterruptedException {
+
+        ReusableMethods.waitFor(1);
+        String güncelTarih = (String) ((JavascriptExecutor) Driver.getDriver()).executeScript("return arguments[0].value;", i̇zinPage.başlamaTarihiAlanı);
+        System.out.println("Sistemin düzelttiği tarih: " + güncelTarih);
+        Assert.assertTrue(güncelTarih.contains("23"), "Hata: Sistem tarihi otomatik Pazartesi'ye (23) düzeltmedi!");
+
+
+    }
+
     @When("Kullanıcı açılan pencerede Günlük radio butonunun seçili olduğunu doğrular")
     public void kullanıcı_açılan_pencerede_günlük_radio_butonunun_seçili_olduğunu_doğrular() throws InterruptedException {
 
@@ -135,7 +146,6 @@ public class İzinStepDefinitions {
     public void kullanıcı_ekranda_izin_tipi_günlüktür_uyarısını_gördüğünü_doğrular() {
 
         String actualMesaj = i̇zinPage.günlükIzinUyariMesaji.getText();
-        System.out.println(actualMesaj);
         String expectedMesaj = "İzin tipi günlüktür, saatlik seçilemez !";
         Assert.assertEquals(actualMesaj, expectedMesaj, "Hata: Günlük izin uyarısı beklenen metni içermiyor!");
 
@@ -148,6 +158,14 @@ public class İzinStepDefinitions {
         System.out.println(actualMesaj);
         String expectedMesaj = "Evlilik izni en fazla 3 gün kullanılabilir";
         Assert.assertEquals(actualMesaj, expectedMesaj, "Hata: Evlilik izni uyarısı beklenen metni içermiyor!");
+
+    }
+
+    @Then("Kullanıcı Ekle butonunun disabled olduğunu doğrular")
+    public void kullanıcı_ekle_butonunun_disabled_olduğunu_doğrular() {
+
+        String ariaDisabled = i̇zinPage.ekleButonu.getAttribute("aria-disabled");
+        Assert.assertEquals(ariaDisabled, "true", "BUG: Ekle butonu disabled değildir!");
 
     }
 
@@ -169,10 +187,19 @@ public class İzinStepDefinitions {
 
     }
 
+    @Then("Kullanıcı alt panelde toplam {int} İşgünü kullanıldığını doğrular")
+    public void kullanıcı_alt_panelde_toplam_işgünü_kullanıldığını_doğrular(int işgünü) throws InterruptedException {
 
+        ReusableMethods.waitFor(5);
+        Assert.assertEquals(i̇zinPage.izinGunSayisi(), işgünü, "Hata: Hesaplanan iş günü beklenenden farklı!");
+
+    }
 
 
 }
+
+
+
 
 
 
