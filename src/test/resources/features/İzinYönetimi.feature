@@ -8,8 +8,8 @@ Feature: İzin İşlemleri Modülü Yönetimi
   Scenario: (Pozitif Test-1) Yıllık İzin Seçimi
     Given Kullanıcı izin ekle menüsüne gider
     When Kullanıcı açılan pencerede izin tipi dropdowndan "Yıllık İzin" seçeneğini seçer
-    And Kullanıcı iznin başlama tarihini "13.06.2026" olarak seçer
-    And Kullanıcı iznin bitiş tarihini "15.06.2026" olarak seçer
+    And Kullanıcı iznin başlama tarihini "19.06.2026" olarak seçer
+    And Kullanıcı iznin bitiş tarihini "21.06.2026" olarak seçer
     And Kullanıcı açıklama alanına "Yıllık izin otomasyon testi Erdem" yazar
     And Kullanıcı ekle butonuna tıklar
     Then Kullanıcı "Yıllık İzin" oluşturulduğunu doğrular
@@ -39,8 +39,8 @@ Feature: İzin İşlemleri Modülü Yönetimi
 
     Examples:
       | izinTipi    | baslangic  | bitis      | aciklama                      |
-      | Yıllık İzin | 13.03.2026 | 15.03.2026 | Yıllık izin otomasyon - Erdem |
-      | Doğum İzni  | 13.07.2026 | 15.07.2026 | Doğum izni otomasyon - Erdem  |
+      | Yıllık İzin | 19.04.2026 | 21.04.2026 | Yıllık izin otomasyon - Erdem |
+      | Doğum İzni  | 19.06.2026 | 20.06.2026 | Doğum izni otomasyon - Erdem  |
 
   @HesaplamaKontrolu
   Scenario: (Pozitif Test-4) Tarih aralığına göre iznin toplam iş günü sayısının doğru hesaplanması
@@ -62,15 +62,15 @@ Feature: İzin İşlemleri Modülü Yönetimi
   Scenario:(Negatif Test-1) Uzaktan Çalışma izninde başlangıç gününü Perşembe harici (geçersiz) bir gün seçme
     Given Kullanıcı izin ekle menüsüne gider
     When Kullanıcı açılan pencerede izin tipi dropdowndan "Uzaktan Çalışma" seçeneğini seçer
-    And Kullanıcı iznin başlama tarihini "12.01.2026" olarak seçer
-    Then Kullanıcı iznin başlama tarihinin ilk geçerli gün olan "15.01.2026" olarak güncellendiğini doğrular
+    And Kullanıcı iznin başlama tarihini "16.06.2026" olarak seçer
+    Then Kullanıcı iznin başlama tarihinin ilk geçerli gün olan "18.06.2026" olarak güncellendiğini doğrular
 
   @DogumGunuIzni @ParalelTest
   Scenario:(Negatif Test-2) Doğum Günü izninde başlangıç gününü Pazartesi harici (geçersiz) bir gün seçme
     Given Kullanıcı izin ekle menüsüne gider
     When Kullanıcı açılan pencerede izin tipi dropdowndan "Doğum Günü izni" seçeneğini seçer
-    And Kullanıcı iznin başlama tarihini "21.02.2026" olarak seçer
-    Then Kullanıcı iznin başlama tarihinin ilk geçerli gün olan "23.02.2026" olarak güncellendiğini doğrular
+    And Kullanıcı iznin başlama tarihini "10.12.2026" olarak seçer
+    Then Kullanıcı iznin başlama tarihinin ilk geçerli gün olan "14.12.2026" olarak güncellendiğini doğrular
 
 
   @SaatlikIzin @ParalelTest
@@ -104,7 +104,7 @@ Feature: İzin İşlemleri Modülü Yönetimi
     When Kullanıcı açılan pencerede izin tipi dropdowndan "Yıllık İzin" seçeneğini seçer
     And Kullanıcı iznin başlama tarihini "03.04.2026" olarak seçer
     And Kullanıcı iznin bitiş tarihini "06.04.2026" olarak seçer
-    And Kullanıcı açıklama alanına "Ücretsiz izin otomasyon testi Erdem" yazar
+    And Kullanıcı açıklama alanına "Yıllık İzin otomasyon testi Erdem" yazar
     And Kullanıcı ekle butonuna tıklar
     Then Kullanıcı "Yıllık İzin" oluşturulduğunu doğrular
     And Kullanıcı aynı tarihlerde yeni izin eklemek için tekrar izin ekle ekranına gelir

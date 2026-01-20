@@ -14,7 +14,7 @@ import org.testng.annotations.DataProvider;
         features = "src/test/resources/features",
         glue = "com.shiftup.step_definitions",
         dryRun = false,
-        tags = "@IzinBakiyesi"
+        tags = "@GecmisTarihliIzin"
 )
 public class TestRunner extends AbstractTestNGCucumberTests {
 

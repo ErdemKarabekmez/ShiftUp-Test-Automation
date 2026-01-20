@@ -29,7 +29,6 @@ public class İzinStepDefinitions {
 
     }
 
-
     @When("Kullanıcı açılan pencerede izin tipi dropdowndan {string} seçeneğini seçer")
     public void kullanıcı_açılan_pencerede_izin_tipi_dropdowndan_seçeneğini_seçer(String izinTipi) throws InterruptedException {
 
@@ -212,7 +211,7 @@ public class İzinStepDefinitions {
 
         ReusableMethods.waitFor(4);
         String actualMesaj = i̇zinPage.izinTanımlıUyarıMesajı.getText();
-        System.out.println("actual mesaj" + actualMesaj);
+        System.out.println("actual mesaj : " + actualMesaj);
         String expectedMesaj = "Belirtilen tarihler arasında izin tanımlı olduğu için devam edilemez!";
         Assert.assertEquals(actualMesaj, expectedMesaj, "Hata: İzin tanımlı uyarısı görünmüyor.");
 

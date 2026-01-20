@@ -157,7 +157,7 @@ public class İzinPage {
      */
     public void tablodakiİlkİzniSil() throws InterruptedException {
 
-        ReusableMethods.waitFor(6);
+        ReusableMethods.waitFor(4);
         // ReusableMethods.waitForClickability(tablodakiİlkİzniSilmeButonu);
         ReusableMethods.clickWithJS(tablodakiİlkİzniSilmeButonu);
         //ReusableMethods.waitForClickability(popupSilButonu);
