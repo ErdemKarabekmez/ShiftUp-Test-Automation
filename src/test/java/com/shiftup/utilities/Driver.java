@@ -6,7 +6,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
-
 import java.time.Duration;
 
 public class Driver {
@@ -14,7 +13,7 @@ public class Driver {
     private Driver() {
     }
 
-    private static ThreadLocal<WebDriver> driverPool = new ThreadLocal<>();
+    private static final ThreadLocal<WebDriver> driverPool = new ThreadLocal<>();
 
     public static WebDriver getDriver() {
 
@@ -23,27 +22,17 @@ public class Driver {
             String browser = ConfigReader.getProperty("browser");
 
             switch (browser) {
-                case "chrome":
-                    driverPool.set(new ChromeDriver());
-                    break;
-                case "headless-chrome":
+                case "headless-chrome" -> {
                     ChromeOptions options = new ChromeOptions();
                     options.addArguments("--headless=new");
                     options.addArguments("--window-size=1920,1080");
                     options.addArguments("--disable-gpu");
                     driverPool.set(new ChromeDriver(options));
-                    break;
-                case "firefox":
-                    driverPool.set(new FirefoxDriver());
-                    break;
-                case "edge":
-                    driverPool.set(new EdgeDriver());
-                    break;
-                case "safari":
-                    driverPool.set(new SafariDriver());
-                    break;
-                default:
-                    driverPool.set(new ChromeDriver());
+                }
+                case "firefox" -> driverPool.set(new FirefoxDriver());
+                case "edge" -> driverPool.set(new EdgeDriver());
+                case "safari" -> driverPool.set(new SafariDriver());
+                default -> driverPool.set(new ChromeDriver());
             }
 
             driverPool.get().manage().window().maximize();

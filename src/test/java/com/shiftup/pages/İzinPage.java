@@ -8,15 +8,21 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.Assert;
+
 
 
 public class İzinPage {
+
 
     public İzinPage() {
         PageFactory.initElements(Driver.getDriver(), this);
     }
 
+
+    /**
+     * Bu sınıf içerisinde, İzin Yönetimi sayfasına ait tüm web elementleri (locatorlar) ve metotlar yer almaktadır.
+     * Sayfadaki butonlar, giriş alanları ve tabloların adresleri (locatorlar) burada tanımlanmış ve yönetilmektedir.
+     */
     @FindBy(xpath = "//span[contains(text(),'İzin Yönetimi')]")
     public WebElement izinYönetimiButonu;
 
@@ -38,7 +44,7 @@ public class İzinPage {
     @FindBy(xpath = "//md-datepicker[@ng-model='vm.row.Plan_Finish_Date']//input")
     public WebElement izinBitişTarihiAlanı;
 
-    @FindBy (xpath = "//md-datepicker[@ng-model='vm.row.Start_Working_Date']//input")
+    @FindBy(xpath = "//md-datepicker[@ng-model='vm.row.Start_Working_Date']//input")
     public WebElement işeBaşlamaTarihiAlanı;
 
     @FindBy(id = "input_127")
@@ -68,7 +74,7 @@ public class İzinPage {
     @FindBy(xpath = "(//span[contains(text(), 'İzin hak edişiniz bulunmamaktadır.')])[2]")
     public WebElement izinHakedişiBulunmamaUyariMesaji;
 
-    @FindBy (xpath = "//span[contains(text(), 'izin tanımlı')]")
+    @FindBy(xpath = "//span[contains(text(), 'izin tanımlı')]")
     public WebElement izinTanımlıUyarıMesajı;
 
     @FindBy(xpath = "//md-radio-button[@value='1' and @aria-label='Saatlik']")
@@ -80,29 +86,46 @@ public class İzinPage {
     @FindBy(xpath = "//*[contains(text(),'İşgünü')]/../b")
     public WebElement izinGunuSayisi;
 
+    /**
+     * Bu metot, test senaryosu içerisinde İzin Yönetimi sayfasına giderek
+     * ilgili butonlara basar ve yeni izin ekleme formunu açar.
+     */
     public void izinEkleMenüsüneGidiş() throws InterruptedException {
 
-        ReusableMethods.waitFor(5);
+        //ReusableMethods.waitFor(5);
+        ReusableMethods.waitVisibilityOf(izinYönetimiButonu);
         ReusableMethods.clickWithJS(izinYönetimiButonu);
-        ReusableMethods.waitFor(5);
+        //ReusableMethods.waitFor(5);
+        ReusableMethods.waitVisibilityOf(izinlerimButonu);
         izinlerimButonu.click();
-       // ReusableMethods.clickWithJS(izinlerimButonu);
+        //ReusableMethods.clickWithJS(izinlerimButonu);
         ReusableMethods.waitFor(5);
+        //ReusableMethods.waitVisibilityOf(hızlıİşlemlerButonu);
         ReusableMethods.clickWithJS(hızlıİşlemlerButonu);
-        ReusableMethods.waitFor(5);
+        //ReusableMethods.waitFor(5);
+        ReusableMethods.waitVisibilityOf(artıİşaretiButonu);
         ReusableMethods.clickWithJS(artıİşaretiButonu);
-        ReusableMethods.waitFor(5);
+        // ReusableMethods.waitFor(5);
 
     }
 
-    public void izinTipiSeçme(String izinTipi) {
+    /**
+     * Bu metot, parametre olarak gelen izin tipine göre dinamik bir XPath oluşturur
+     * ve dropdowndan ilgili izin seçeneğini bularak JavaScript yardımıyla seçim işlemini gerçekleştirir.
+     */
+    public void izinTipiSeçme(String izinTipi) throws InterruptedException {
 
         String dinamikXpath = "//md-option//div[normalize-space()='" + izinTipi + "']";
         WebElement seçim = Driver.getDriver().findElement(By.xpath(dinamikXpath));
+        ReusableMethods.waitFor(7);
         ReusableMethods.clickWithJS(seçim);
 
     }
 
+    /**
+     * Bu metot, tarihi alanındaki mevcut veriyi JavaScript kullanarak temizler,
+     * yeni izin başlama tarihi verisini yazar.
+     */
     public void tarihiTemizleVeYeniTarihYaz(WebElement element, String tarih) {
 
         JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
@@ -115,20 +138,38 @@ public class İzinPage {
 
     }
 
+    /**
+     * Bu metot, sayfadaki tüm izinlerin listelendiği tablonun ilk satırına gider,
+     * ilgili sütundaki izin tipi verisini okur ve bu metni doğrulama yapmak üzere geri döndürür.
+     */
     public String tümİzinlerTablosundailkSatırdakiİzinTipiniAl() {
 
         WebElement ilkSatirIzinTipi = Driver.getDriver().findElement(By.xpath("(//table//tr[1]//td)[4]"));
+        ReusableMethods.waitVisibilityOf(ilkSatirIzinTipi);
         return ilkSatirIzinTipi.getText();
 
     }
 
+    /**
+     * Bu metot, izin tablosundaki ilk satırda bulunan silme butonuna tıklar,
+     * ardından çıkan onay pop-up'ındaki silme butonunu tetikleyerek
+     * ilgili izin kaydının sistemden kaldırılmasını sağlar.
+     */
     public void tablodakiİlkİzniSil() throws InterruptedException {
 
+        ReusableMethods.waitFor(6);
+        // ReusableMethods.waitForClickability(tablodakiİlkİzniSilmeButonu);
         ReusableMethods.clickWithJS(tablodakiİlkİzniSilmeButonu);
+        //ReusableMethods.waitForClickability(popupSilButonu);
         ReusableMethods.clickWithJS(popupSilButonu);
-        ReusableMethods.waitFor(5);
+        ReusableMethods.waitFor(6);
     }
 
+    /**
+     * Bu metot, sayfadaki izin bakiye bilgisini metin olarak alır, içindeki rakam ve nokta dışındaki
+     * tüm karakterleri temizler ve sonucu matematiksel işlemler
+     * yapılabilmesi için ondalıklı sayı (double) formatında döndürür.
+     */
     public double bakiyeHesapla() {
 
         String bakiyeMetni = kalanIzinBakiyeDegeri.getText();
@@ -137,6 +178,11 @@ public class İzinPage {
 
     }
 
+    /**
+     * Bu metot, sayfada metin olarak görünen izin gün sayısını alır,
+     * bu metni tam sayı (integer) formatına dönüştürür ve testlerde
+     * sayısal karşılaştırmalar yapılabilmesi için geri döndürür.
+     */
     public int izinGunSayisi() {
 
         return Integer.parseInt(izinGunuSayisi.getText());

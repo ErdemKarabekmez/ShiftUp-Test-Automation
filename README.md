@@ -23,10 +23,16 @@ ShiftUp (Project Root)
         │   ├── pages              # Web elementleri (@FindBy) ve sayfa metotları
         │   ├── runners            # Testleri çalıştıran sınıflar (TestRunner)
         │   ├── step_definitions   # Cucumber adımlarının Java kod karşılıkları
-        │   └── utilities          # Yardımcı araçlar (Driver, ConfigReader vb.)
+        │   └── utilities          # Yardımcı araçlar, hazır methodlar (Driver, ConfigReader, ReusableMethods vb.)
         └── resources
             ├── features           # Test senaryoları (.feature dosyaları)
             └── allure.properties  # Raporlama ayarları
+            
+* Projenin sürdürülebilirliğini ve okunabilirliğini artırmak için temiz kod (Clean Code) prensipleri uygulanmıştır:
+* JavaDoc Açıklamaları: Proje sınıfları içindeki tüm metotlar, JavaDoc standartlarına uygun açıklamalar içerir.
+* Metot İşlevleri: Her metodun üzerinde, o metodun hangi işlemi gerçekleştirdiğine dair bilgiler yer almaktadır.
+* Locator Tanımları: Sayfa (Page) sınıflarındaki web elementleri (locatorlar), karmaşıklığı önlemek adına işlevlerine göre dökümante edilmiştir.                    
+
 ```
 ## 📋 Ön Koşullar 
 Bu projeyi sorunsuz çalıştırabilmek için bilgisayarınızda aşağıdaki araçların yüklü olması gerekmektedir:
@@ -110,7 +116,7 @@ Geliştirme yaparken hızlıca sonuç görmek için:
 **💡 İpucu: Belirli Senaryoları Çalıştırma (Tags)**
 Hangi senaryonun çalıştırılacağını belirlemek için `TestRunner` sınıfındaki `tags` bölümünü güncelleyebilirsiniz.
 * Buraya istediğiniz senaryonun etiketini (örneğin `@smoke`, `@login`) yazın.
-* Mevcut etiketleri, `resources` dizini altındaki `.feature` dosyalarında her senaryonun en tepesinde bulabilirsiniz.
+* Mevcut etiketleri, `resources` dizini altındaki `.feature` dosyalarında her senaryonun başında bulabilirsiniz.
 
 ---
 ## ⚡️ Paralel Test Koşumu
@@ -129,6 +135,7 @@ Aynı anda kaç testin koşulacağını `pom.xml` dosyasından yönetebilirsiniz
 2. `plugins` içerisinde `<threadCount>` etiketini bulun.
 3.   Buradaki sayıyı değiştirerek paralellik seviyesini belirleyin 
 (Örneğin `2` yaparsanız aynı anda `2` tarayıcı açılır).
+4. TestRunner Classında tags kısmına paralel çalıştırmak istediğiniz testler için ortak tag yazın
      
 
 *Not: Paralel koşum, terminalden `mvn clean test` komutu çalıştırıldığında otomatik olarak devreye girer.*
@@ -139,4 +146,9 @@ Kod yazmak yerine IntelliJ arayüzünü kullanmak isterseniz:
 3. Önce `clean` seçeneğine çift tıklayın (Eski raporları ve dosyaları temizler).
 4. Ardından `test` seçeneğine çift tıklayın (Testleri paralel olarak başlatır).
 
-
+---
+## 📸 Hata Analizi ve Raporlama
+* Proje, hata takibini kolaylaştırmak için otomatik ekran görüntüsü (screenshot) alma mekanizmasına sahiptir:
+* @After Hook Entegrasyonu: Hooks sınıfı içindeki @After notasyonu sayesinde her senaryo sonrası otomatik kontrol yapılır.
+* Otomatik Ekran Görüntüsü: Yalnızca fail (başarısız) olan testlerde, hatanın gerçekleştiği anın ekran görüntüsü kaydedilir.
+* Rapor Bağlantısı: Alınan görseller doğrudan test raporuna eklenerek hatanın hızlıca analiz edilmesine olanak tanır.

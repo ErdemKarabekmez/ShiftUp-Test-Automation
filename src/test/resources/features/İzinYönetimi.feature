@@ -8,8 +8,8 @@ Feature: İzin İşlemleri Modülü Yönetimi
   Scenario: (Pozitif Test-1) Yıllık İzin Seçimi
     Given Kullanıcı izin ekle menüsüne gider
     When Kullanıcı açılan pencerede izin tipi dropdowndan "Yıllık İzin" seçeneğini seçer
-    And Kullanıcı iznin başlama tarihini "13.03.2026" olarak seçer
-    And Kullanıcı iznin bitiş tarihini "15.03.2026" olarak seçer
+    And Kullanıcı iznin başlama tarihini "13.06.2026" olarak seçer
+    And Kullanıcı iznin bitiş tarihini "15.06.2026" olarak seçer
     And Kullanıcı açıklama alanına "Yıllık izin otomasyon testi Erdem" yazar
     And Kullanıcı ekle butonuna tıklar
     Then Kullanıcı "Yıllık İzin" oluşturulduğunu doğrular
@@ -19,8 +19,8 @@ Feature: İzin İşlemleri Modülü Yönetimi
   Scenario: (Pozitif Test-2) Doğum İzni Seçimi
     Given Kullanıcı izin ekle menüsüne gider
     When Kullanıcı açılan pencerede izin tipi dropdowndan "Doğum İzni" seçeneğini seçer
-    And Kullanıcı iznin başlama tarihini "13.07.2026" olarak seçer
-    And Kullanıcı iznin bitiş tarihini "15.07.2026" olarak seçer
+    And Kullanıcı iznin başlama tarihini "28.07.2026" olarak seçer
+    And Kullanıcı iznin bitiş tarihini "29.07.2026" olarak seçer
     And Kullanıcı açıklama alanına "Doğum İzni otomasyon testi Erdem" yazar
     And Kullanıcı ekle butonuna tıklar
     Then Kullanıcı "Doğum İzni" oluşturulduğunu doğrular
@@ -46,26 +46,26 @@ Feature: İzin İşlemleri Modülü Yönetimi
   Scenario: (Pozitif Test-4) Tarih aralığına göre iznin toplam iş günü sayısının doğru hesaplanması
     Given Kullanıcı izin ekle menüsüne gider
     When Kullanıcı açılan pencerede izin tipi dropdowndan "Raporlu İzin" seçeneğini seçer
-    And Kullanıcı iznin başlama tarihini "15.07.2026" olarak seçer
-    And Kullanıcı iznin bitiş tarihini "19.07.2026" olarak seçer
+    And Kullanıcı iznin başlama tarihini "15.08.2026" olarak seçer
+    And Kullanıcı iznin bitiş tarihini "19.08.2026" olarak seçer
     Then Kullanıcı alt panelde toplam 5 İşgünü kullanıldığını doğrular
 
   @IseBaslamaTarihiKontrolu
   Scenario: (Pozitif Test-5) İzin Bitimi İşe Başlama Tarihi Kontrolü
     Given Kullanıcı izin ekle menüsüne gider
     When Kullanıcı açılan pencerede izin tipi dropdowndan "Home Office" seçeneğini seçer
-    And Kullanıcı iznin başlama tarihini "22.04.2026" olarak seçer
-    And Kullanıcı iznin bitiş tarihini "25.04.2026" olarak seçer
-    Then Kullanıcı işe başlama tarihinin "26.04.2026" olarak güncellendiğini doğrular
+    And Kullanıcı iznin başlama tarihini "22.09.2026" olarak seçer
+    And Kullanıcı iznin bitiş tarihini "25.09.2026" olarak seçer
+    Then Kullanıcı işe başlama tarihinin "26.09.2026" olarak güncellendiğini doğrular
 
-  @UzaktanCalisma
+  @UzaktanCalisma @ParalelTest
   Scenario:(Negatif Test-1) Uzaktan Çalışma izninde başlangıç gününü Perşembe harici (geçersiz) bir gün seçme
     Given Kullanıcı izin ekle menüsüne gider
     When Kullanıcı açılan pencerede izin tipi dropdowndan "Uzaktan Çalışma" seçeneğini seçer
     And Kullanıcı iznin başlama tarihini "12.01.2026" olarak seçer
     Then Kullanıcı iznin başlama tarihinin ilk geçerli gün olan "15.01.2026" olarak güncellendiğini doğrular
 
-  @DogumGunuIzni
+  @DogumGunuIzni @ParalelTest
   Scenario:(Negatif Test-2) Doğum Günü izninde başlangıç gününü Pazartesi harici (geçersiz) bir gün seçme
     Given Kullanıcı izin ekle menüsüne gider
     When Kullanıcı açılan pencerede izin tipi dropdowndan "Doğum Günü izni" seçeneğini seçer
@@ -73,7 +73,7 @@ Feature: İzin İşlemleri Modülü Yönetimi
     Then Kullanıcı iznin başlama tarihinin ilk geçerli gün olan "23.02.2026" olarak güncellendiğini doğrular
 
 
-  @SaatlikIzin
+  @SaatlikIzin @ParalelTest
   Scenario: (Negatif Test-3) Günlük izin türü seçiliyken saatlik iznin kısıtlanması
     Given Kullanıcı izin ekle menüsüne gider
     When Kullanıcı açılan pencerede Günlük radio butonunun seçili olduğunu doğrular
@@ -95,21 +95,21 @@ Feature: İzin İşlemleri Modülü Yönetimi
     When Kullanıcı açılan pencerede izin tipi dropdowndan "Evlilik İzni" seçeneğini seçer
     And Kullanıcı iznin başlama tarihini "10.07.2026" olarak seçer
     And Kullanıcı iznin bitiş tarihini "15.07.2026" olarak seçer
-    Then Kullanıcı ekranda Evlilik izni en fazla 3 gün olabilir uyarısını doğrular
+    Then Kullanıcı ekranda Evlilik izni en fazla üç gün olabilir uyarısını doğrular
     Then Kullanıcı Ekle butonunun disabled olduğunu doğrular
 
   @IzinTekrarı
   Scenario: (Negatif Test-6) Aynı izni aynı tarihte tekrar seçme
     Given Kullanıcı izin ekle menüsüne gider
-    When Kullanıcı açılan pencerede izin tipi dropdowndan "Ücretsiz İzin" seçeneğini seçer
-    And Kullanıcı iznin başlama tarihini "18.05.2026" olarak seçer
-    And Kullanıcı iznin bitiş tarihini "20.05.2026" olarak seçer
+    When Kullanıcı açılan pencerede izin tipi dropdowndan "Yıllık İzin" seçeneğini seçer
+    And Kullanıcı iznin başlama tarihini "03.04.2026" olarak seçer
+    And Kullanıcı iznin bitiş tarihini "06.04.2026" olarak seçer
     And Kullanıcı açıklama alanına "Ücretsiz izin otomasyon testi Erdem" yazar
     And Kullanıcı ekle butonuna tıklar
-    Then Kullanıcı "Ücretsiz İzin" oluşturulduğunu doğrular
+    Then Kullanıcı "Yıllık İzin" oluşturulduğunu doğrular
     And Kullanıcı aynı tarihlerde yeni izin eklemek için tekrar izin ekle ekranına gelir
-    When Kullanıcı açılan pencerede izin tipi dropdowndan "Ücretsiz İzin" seçeneğini seçer
-    And Kullanıcı iznin başlama tarihini "18.05.2026" olarak seçer
+    When Kullanıcı açılan pencerede izin tipi dropdowndan "Yıllık İzin" seçeneğini seçer
+    And Kullanıcı iznin başlama tarihini "03.04.2026" olarak seçer
     Then Kullanıcı ekranda izin tanımlı uyarısını gördüğünü doğrular
     Then Kullanıcı Ekle butonunun disabled olduğunu doğrular
 
@@ -123,8 +123,8 @@ Feature: İzin İşlemleri Modülü Yönetimi
         # BU BİR BUG TIR
     Given Kullanıcı izin ekle menüsüne gider
     When Kullanıcı açılan pencerede izin tipi dropdowndan "Yıllık İzin" seçeneğini seçer
-    When Kullanıcı iznin başlama tarihini "18.01.2026" olarak seçer
-    And Kullanıcı iznin bitiş tarihini "18.06.2026" olarak seçer
+    When Kullanıcı iznin başlama tarihini "11.02.2026" olarak seçer
+    And Kullanıcı iznin bitiş tarihini "18.09.2026" olarak seçer
     And Kullanıcı kalan bakiyenin eksiye düştüğünü doğrular
     And Kullanıcı ekranda izin hakedişiniz bulunmamaktadır uyarısını gördüğünü doğrular
     And Kullanıcı ekle butonuna tıklar

@@ -11,10 +11,15 @@ public class Hooks {
 
     @Before
     public void setUp() {
-
         System.out.println("Test Başlıyor");
     }
 
+
+    /**
+     * Bu metot, her test senaryosundan sonra otomatik olarak çalışır.
+     * Test başarısız olursa (fail) ekran görüntüsü alarak rapora ekler ve
+     * her durumda tarayıcıyı güvenli bir şekilde kapatır.
+     */
     @After
     public void tearDown(Scenario scenario) {
 
@@ -22,7 +27,6 @@ public class Hooks {
             final byte[] screenshot = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
             scenario.attach(screenshot, "image/png", "screenshot");
         }
-
        Driver.closeDriver();
     }
 }

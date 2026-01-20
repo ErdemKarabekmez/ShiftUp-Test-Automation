@@ -25,27 +25,29 @@ public class İzinStepDefinitions {
     @Given("Kullanıcı izin ekle menüsüne gider")
     public void kullanıcı_izin_ekle_menüsüne_gider() throws InterruptedException {
 
-        ReusableMethods.waitFor(5);
         i̇zinPage.izinEkleMenüsüneGidiş();
+
     }
 
 
     @When("Kullanıcı açılan pencerede izin tipi dropdowndan {string} seçeneğini seçer")
     public void kullanıcı_açılan_pencerede_izin_tipi_dropdowndan_seçeneğini_seçer(String izinTipi) throws InterruptedException {
 
-        ReusableMethods.waitFor(5);
+        ReusableMethods.waitVisibilityOf(i̇zinPage.izinTipiDropdown);
         ReusableMethods.clickWithJS(i̇zinPage.izinTipiDropdown);
         ReusableMethods.waitFor(3);
         i̇zinPage.izinTipiSeçme(izinTipi);
+
     }
 
     @When("Kullanıcı iznin başlama tarihini {string} olarak seçer")
     public void kullanıcı_iznin_başlama_tarihini_olarak_seçer(String başlamaTarihi) throws InterruptedException {
 
-        ReusableMethods.waitFor(5);
+        ReusableMethods.waitFor(6);
+        //ReusableMethods.waitVisibilityOf(i̇zinPage.izinBaşlamaTarihiAlanı);
         ReusableMethods.clickWithJS(i̇zinPage.izinBaşlamaTarihiAlanı);
         i̇zinPage.tarihiTemizleVeYeniTarihYaz(i̇zinPage.izinBaşlamaTarihiAlanı, başlamaTarihi);
-        ReusableMethods.waitFor(5);
+        ReusableMethods.waitFor(3);
 
     }
 
@@ -53,33 +55,37 @@ public class İzinStepDefinitions {
     public void kullanıcı_iznin_bitiş_tarihini_olarak_seçer(String bitişTarihi) throws InterruptedException {
 
         ReusableMethods.waitFor(5);
+        ReusableMethods.waitVisibilityOf(i̇zinPage.izinBitişTarihiAlanı);
         ReusableMethods.clickWithJS(i̇zinPage.izinBitişTarihiAlanı);
         i̇zinPage.tarihiTemizleVeYeniTarihYaz(i̇zinPage.izinBitişTarihiAlanı, bitişTarihi);
-
 
     }
 
     @When("Kullanıcı açıklama alanına {string} yazar")
     public void kullanıcı_açıklama_alanına_yazar(String açıklama) throws InterruptedException {
-        ReusableMethods.waitFor(5);
+
+        ReusableMethods.waitFor(3);
+        ReusableMethods.waitVisibilityOf(i̇zinPage.açıklamaAlanı);
         i̇zinPage.açıklamaAlanı.sendKeys(açıklama);
 
     }
 
     @When("Kullanıcı ekle butonuna tıklar")
-    public void kullanıcı_ekle_butonuna_tıklar() {
+    public void kullanıcı_ekle_butonuna_tıklar() throws InterruptedException {
 
+        ReusableMethods.waitVisibilityOf(i̇zinPage.ekleButonu);
+        ReusableMethods.waitFor(5);
         i̇zinPage.ekleButonu.click();
+
     }
 
     @Then("Kullanıcı {string} oluşturulduğunu doğrular")
     public void kullanıcı_oluşturulduğunu_doğrular(String izinTipi) throws InterruptedException {
 
-        ReusableMethods.waitFor(7);
+        ReusableMethods.waitFor(5);
         ReusableMethods.sayfayıYenile();
         ReusableMethods.waitFor(7);
         Assert.assertEquals(i̇zinPage.tümİzinlerTablosundailkSatırdakiİzinTipiniAl(), izinTipi);
-        ReusableMethods.waitFor(7);
 
     }
 
@@ -87,6 +93,7 @@ public class İzinStepDefinitions {
     @Then("Kullanıcı yeni oluşturduğu izni tablodan siler")
     public void kullanıcı_yeni_oluşturduğu_izni_tablodan_siler() throws InterruptedException {
 
+        ReusableMethods.waitFor(5);
         i̇zinPage.tablodakiİlkİzniSil();
 
     }
@@ -98,7 +105,6 @@ public class İzinStepDefinitions {
         String güncelTarih = (String) ((JavascriptExecutor) Driver.getDriver()).executeScript("return arguments[0].value;", i̇zinPage.izinBaşlamaTarihiAlanı);
         System.out.println("Sistemin düzelttiği tarih: " + güncelTarih);
         Assert.assertEquals(güncelTarih, izinBaşlamaTarihi, "Hata: Sistem tarihi otomatik olarak düzeltmedi!");
-
 
     }
 
@@ -117,6 +123,7 @@ public class İzinStepDefinitions {
         String actualMesaj = i̇zinPage.saatlikIzinUyariMesaji.getText();
         String expectedMesaj = "İzin tipi saatliktir, günlük seçilemez !";
         Assert.assertEquals(actualMesaj, expectedMesaj, "Hata: Saatlik izin uyarısı görünmüyor!");
+
     }
 
     @When("Kullanıcı açılan pencerede Saatlik radio butonunu seçer")
@@ -135,8 +142,8 @@ public class İzinStepDefinitions {
 
     }
 
-    @Then("Kullanıcı ekranda Evlilik izni en fazla 3 gün olabilir uyarısını doğrular")
-    public void kullanıcı_ekranda_evlilik_izni_en_fazla_gün_olabilir_uyarısını_doğrular() {
+    @Then("Kullanıcı ekranda Evlilik izni en fazla üç gün olabilir uyarısını doğrular")
+    public void kullanıcı_ekranda_evlilik_izni_en_fazla_üç_gün_olabilir_uyarısını_doğrular() {
 
         String actualMesaj = i̇zinPage.evlilikIzniUyariMesaji.getText();
         System.out.println(actualMesaj);
@@ -156,7 +163,7 @@ public class İzinStepDefinitions {
     @When("Kullanıcı kalan bakiyenin eksiye düştüğünü doğrular")
     public void kullanıcı_kalan_bakiyenin_eksiye_düştüğünü_doğrular() throws InterruptedException {
 
-        ReusableMethods.waitFor(2);
+        ReusableMethods.waitFor(7);
         Assert.assertTrue(i̇zinPage.bakiyeHesapla() < 0, "Hata: Kalan izin bakiyesi sayısal olarak 0'dan küçük değil!");
 
     }
@@ -187,7 +194,6 @@ public class İzinStepDefinitions {
         System.out.println("Sistemin düzelttiği tarih: " + güncelTarih);
         Assert.assertEquals(güncelTarih, işeBaşlamaTarihi, "Hata: Sistem tarihi otomatik olarak düzeltmedi!");
 
-
     }
 
     @Then("Kullanıcı aynı tarihlerde yeni izin eklemek için tekrar izin ekle ekranına gelir")
@@ -210,11 +216,7 @@ public class İzinStepDefinitions {
         String expectedMesaj = "Belirtilen tarihler arasında izin tanımlı olduğu için devam edilemez!";
         Assert.assertEquals(actualMesaj, expectedMesaj, "Hata: İzin tanımlı uyarısı görünmüyor.");
 
-
-
     }
-
-
 }
 
 
