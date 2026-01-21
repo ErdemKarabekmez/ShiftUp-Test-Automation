@@ -1,5 +1,6 @@
 # 🚀 ShiftUp Test Otomasyon Framework
-Bu proje, ShiftUp uygulamasını test etmek için geliştirilmiş, **BDD (Behavior Driven Development)** yaklaşımını benimseyen modern bir test otomasyon frameworkudur..
+![CI Status](https://github.com/ErdemKarabekmez/ShiftUp-Test-Automation/actions/workflows/ui-tests.yml/badge.svg)
+* Bu proje, ShiftUp uygulamasını test etmek için geliştirilmiş, **BDD (Behavior Driven Development)** yaklaşımını benimseyen modern bir test otomasyon frameworkudur..
 
 ## 🛠 Kullanılan Teknolojiler
 
@@ -152,3 +153,14 @@ Kod yazmak yerine IntelliJ arayüzünü kullanmak isterseniz:
 * @After Hook Entegrasyonu: Hooks sınıfı içindeki @After notasyonu sayesinde her senaryo sonrası otomatik kontrol yapılır.
 * Otomatik Ekran Görüntüsü: Yalnızca fail (başarısız) olan testlerde, hatanın gerçekleştiği anın ekran görüntüsü kaydedilir.
 * Rapor Bağlantısı: Alınan görseller doğrudan test raporuna eklenerek hatanın hızlıca analiz edilmesine olanak tanır.
+---
+## 🚀 CI/CD Pipeline & Test Automation
+* Bu proje, her kod gönderiminde (push) sistemin kararlılığını korumak için GitHub Actions entegrasyonuna sahiptir.
+# 🛠 Otomasyon Süreci
+* Trigger: Projeye yapılan her push işlemi, otomatik olarak test hattını tetikler.
+* Execution: Kritik bir güvenlik önlemi olarak her seferinde Headless Chrome üzerinden @login testleri koşturulur.
+
+📋 Nasıl Takip Edilir?
+* Push işleminden sonra GitHub sayfasındaki Actions sekmesinden güncel test durumunu (Yeşil Tik ✅) görebilirsiniz.
+
+* Başarılı koşumların içindeki Artifacts kısmından detaylı Allure raporlarını indirebilirsiniz.

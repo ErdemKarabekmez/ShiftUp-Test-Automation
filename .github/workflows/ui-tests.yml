@@ -23,7 +23,6 @@ jobs:
 
       - name: Run Login Tests
         run: mvn clean test -Dcucumber.filter.tags="@login"
-        # Not: @login tag'inin login senaryosunda olduğundan emin ol
 
       - name: Generate Allure Report
         if: always()
