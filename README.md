@@ -161,6 +161,6 @@ Kod yazmak yerine IntelliJ arayüzünü kullanmak isterseniz:
 * Execution: Kritik bir güvenlik önlemi olarak her seferinde Headless Chrome üzerinden @login testi koşturulur.
 
 📋 Nasıl Takip Edilir?
+* Kod değişikliklerini pushlamadan önce **configuration.properties** den browser seçeneği `browser=headless-chrome` olarak güncellenmelidir.
 * Push işleminden sonra GitHub sayfasındaki Actions sekmesinden güncel test durumunu (Yeşil Tik ✅) görebilirsiniz.
-
 * Başarılı koşumların içindeki Artifacts kısmından detaylı Allure raporlarını indirebilirsiniz.

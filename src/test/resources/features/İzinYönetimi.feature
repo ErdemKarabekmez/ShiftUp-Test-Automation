@@ -19,8 +19,8 @@ Feature: İzin İşlemleri Modülü Yönetimi
   Scenario: (Pozitif Test-2) Doğum İzni Seçimi
     Given Kullanıcı izin ekle menüsüne gider
     When Kullanıcı açılan pencerede izin tipi dropdowndan "Doğum İzni" seçeneğini seçer
-    And Kullanıcı iznin başlama tarihini "28.07.2026" olarak seçer
-    And Kullanıcı iznin bitiş tarihini "29.07.2026" olarak seçer
+    And Kullanıcı iznin başlama tarihini "28.09.2026" olarak seçer
+    And Kullanıcı iznin bitiş tarihini "29.09.2026" olarak seçer
     And Kullanıcı açıklama alanına "Doğum İzni otomasyon testi Erdem" yazar
     And Kullanıcı ekle butonuna tıklar
     Then Kullanıcı "Doğum İzni" oluşturulduğunu doğrular
