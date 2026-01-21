@@ -58,14 +58,14 @@ Feature: İzin İşlemleri Modülü Yönetimi
     And Kullanıcı iznin bitiş tarihini "25.09.2026" olarak seçer
     Then Kullanıcı işe başlama tarihinin "26.09.2026" olarak güncellendiğini doğrular
 
-  @UzaktanCalisma @ParalelTest
+  @UzaktanCalisma
   Scenario:(Negatif Test-1) Uzaktan Çalışma izninde başlangıç gününü Perşembe harici (geçersiz) bir gün seçme
     Given Kullanıcı izin ekle menüsüne gider
     When Kullanıcı açılan pencerede izin tipi dropdowndan "Uzaktan Çalışma" seçeneğini seçer
     And Kullanıcı iznin başlama tarihini "16.06.2026" olarak seçer
     Then Kullanıcı iznin başlama tarihinin ilk geçerli gün olan "18.06.2026" olarak güncellendiğini doğrular
 
-  @DogumGunuIzni @ParalelTest
+  @DogumGunuIzni
   Scenario:(Negatif Test-2) Doğum Günü izninde başlangıç gününü Pazartesi harici (geçersiz) bir gün seçme
     Given Kullanıcı izin ekle menüsüne gider
     When Kullanıcı açılan pencerede izin tipi dropdowndan "Doğum Günü izni" seçeneğini seçer
@@ -81,7 +81,7 @@ Feature: İzin İşlemleri Modülü Yönetimi
     Then Kullanıcı ekranda izin tipi saatliktir uyarısını gördüğünü doğrular
     Then Kullanıcı Ekle butonunun disabled olduğunu doğrular
 
-  @GunlukIzin
+  @GunlukIzin @ParalelTest
   Scenario: (Negatif Test-4) Saatlik izin türü seçiliyken günlük iznin kısıtlanması
     Given Kullanıcı izin ekle menüsüne gider
     When Kullanıcı açılan pencerede Saatlik radio butonunu seçer
@@ -114,7 +114,6 @@ Feature: İzin İşlemleri Modülü Yönetimi
     Then Kullanıcı Ekle butonunun disabled olduğunu doğrular
 
 
-
   @IzinBakiyesi
   Scenario: (Negatif Test-7 - BUG ) Mevcut bakiyeden fazla izin talep edilmesi durumunda sistemin uyarı vermesi
         # Mevcut bakiyeyi aşan izin taleplerinde sistem, "İzin hak edişiniz bulunmamaktadır" uyarısını göstermesine rağmen,
@@ -123,8 +122,8 @@ Feature: İzin İşlemleri Modülü Yönetimi
         # BU BİR BUG TIR
     Given Kullanıcı izin ekle menüsüne gider
     When Kullanıcı açılan pencerede izin tipi dropdowndan "Yıllık İzin" seçeneğini seçer
-    When Kullanıcı iznin başlama tarihini "11.02.2026" olarak seçer
-    And Kullanıcı iznin bitiş tarihini "18.09.2026" olarak seçer
+    When Kullanıcı iznin başlama tarihini "11.03.2026" olarak seçer
+    And Kullanıcı iznin bitiş tarihini "18.10.2026" olarak seçer
     And Kullanıcı kalan bakiyenin eksiye düştüğünü doğrular
     And Kullanıcı ekranda izin hakedişiniz bulunmamaktadır uyarısını gördüğünü doğrular
     And Kullanıcı ekle butonuna tıklar

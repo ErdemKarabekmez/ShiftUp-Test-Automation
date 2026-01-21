@@ -74,7 +74,7 @@
                 <version>3.5.0</version>
                 <configuration>
                     <parallel>methods</parallel>
-                    <threadCount>3</threadCount>
+                    <threadCount>2</threadCount>
                     <perCoreThreadCount>false</perCoreThreadCount>
 
                     <testFailureIgnore>true</testFailureIgnore>
