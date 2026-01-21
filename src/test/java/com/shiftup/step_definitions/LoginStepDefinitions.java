@@ -29,7 +29,7 @@ public class LoginStepDefinitions {
     @When("Kullanıcı Şifreyi girer")
     public void kullanıcı_şifreyi_girer() throws InterruptedException {
 
-        ReusableMethods.waitFor(3);
+        ReusableMethods.waitFor(5);
        // ReusableMethods.waitVisibilityOf(loginPage.şifreInputBox);
         loginPage.şifreInputBox.sendKeys(ConfigReader.getProperty("password"));
 

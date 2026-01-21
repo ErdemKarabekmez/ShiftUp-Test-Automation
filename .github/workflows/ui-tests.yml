@@ -1,4 +1,4 @@
-name: ShiftUp Login Test Automation
+name: ShiftUp Login Test Automation CI/CD
 
 on:
   push:
