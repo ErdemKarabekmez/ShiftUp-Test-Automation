@@ -158,7 +158,7 @@ Kod yazmak yerine IntelliJ arayüzünü kullanmak isterseniz:
 * Bu proje, her kod gönderiminde (push) sistemin kararlılığını korumak için GitHub Actions entegrasyonuna sahiptir.
 # 🛠 Otomasyon Süreci
 * Trigger: Projeye yapılan her push işlemi, otomatik olarak test hattını tetikler.
-* Execution: Kritik bir güvenlik önlemi olarak her seferinde Headless Chrome üzerinden @login testleri koşturulur.
+* Execution: Kritik bir güvenlik önlemi olarak her seferinde Headless Chrome üzerinden @login testi koşturulur.
 
 📋 Nasıl Takip Edilir?
 * Push işleminden sonra GitHub sayfasındaki Actions sekmesinden güncel test durumunu (Yeşil Tik ✅) görebilirsiniz.
